@@ -533,14 +533,7 @@ with tabs[6]:
 with tabs[7]:
     st.markdown("## 📝 التقرير الفني للمشروع")
     st.write("سيحتوي هذا التقرير على كافة التفاصيل الهندسية، المناخية، وتوصيات الاستدامة.")
-    if st.button("📄 توليد التقرير"):
-        with st.spinner("جاري إنشاء التقرير..."):
-            create_pdf_report(st.session_state['results'])  # ← only on click
-
-    if os.path.exists("Malath_PRO_Report.pdf"):
-        with open("Malath_PRO_Report.pdf", "rb") as f:
-            st.download_button("📥 تحميل", data=f, file_name="Malath_PRO_Report.pdf", mime="application/pdf")
-
+ 
     if PDF_OK:
         try:
             create_pdf_report(st.session_state['results'])
@@ -558,4 +551,4 @@ with tabs[7]:
     else:
         st.info("⚠️ ملف create_presentation.py غير متوفر لإنشاء التقرير.")
         st.json(st.session_state.get('results', {}))
-       
+        
