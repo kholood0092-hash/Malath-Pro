@@ -247,24 +247,7 @@ with tabs[0]:
                 st.error(f"❌ خطأ في توليد النموذج 3D: {e}")
         else:
             st.info("💡 layout.py غير متوفر. النموذج 3D غير متاح.")
- # In tabs[0] in app.py — pass climate data to both functions
-res = st.session_state.get('results') or {}
 
-fig_2d = generate_blueprint_figure(
-    st.session_state['room_options'],
-    st.session_state['area'],
-    active_floor,
-    st.session_state['is_green'],
-    st.session_state['prefs'],
-    climate=res          # ← ADD THIS
-)
-fig_3d = generate_3d_model(
-    st.session_state['room_options'],
-    sel_3d,
-    st.session_state['is_green'],
-    st.session_state['prefs'],
-    climate=res          # ← ADD THIS
-)
 
 # ---------- التبويب 2: الذوق والهوية ----------
 with tabs[1]:
