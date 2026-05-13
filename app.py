@@ -247,7 +247,25 @@ with tabs[0]:
                 st.error(f"❌ خطأ في توليد النموذج 3D: {e}")
         else:
             st.info("💡 layout.py غير متوفر. النموذج 3D غير متاح.")
- 
+ # In tabs[0] in app.py — pass climate data to both functions
+res = st.session_state.get('results') or {}
+
+fig_2d = generate_blueprint_figure(
+    st.session_state['room_options'],
+    st.session_state['area'],
+    active_floor,
+    st.session_state['is_green'],
+    st.session_state['prefs'],
+    climate=res          # ← ADD THIS
+)
+fig_3d = generate_3d_model(
+    st.session_state['room_options'],
+    sel_3d,
+    st.session_state['is_green'],
+    st.session_state['prefs'],
+    climate=res          # ← ADD THIS
+)
+
 # ---------- التبويب 2: الذوق والهوية ----------
 with tabs[1]:
     c_puz, c_her = st.columns(2)
@@ -515,7 +533,14 @@ with tabs[6]:
 with tabs[7]:
     st.markdown("## 📝 التقرير الفني للمشروع")
     st.write("سيحتوي هذا التقرير على كافة التفاصيل الهندسية، المناخية، وتوصيات الاستدامة.")
- 
+    if st.button("📄 توليد التقرير"):
+        with st.spinner("جاري إنشاء التقرير..."):
+            create_pdf_report(st.session_state['results'])  # ← only on click
+
+    if os.path.exists("Malath_PRO_Report.pdf"):
+        with open("Malath_PRO_Report.pdf", "rb") as f:
+            st.download_button("📥 تحميل", data=f, file_name="Malath_PRO_Report.pdf", mime="application/pdf")
+
     if PDF_OK:
         try:
             create_pdf_report(st.session_state['results'])
@@ -533,3 +558,4 @@ with tabs[7]:
     else:
         st.info("⚠️ ملف create_presentation.py غير متوفر لإنشاء التقرير.")
         st.json(st.session_state.get('results', {}))
+       

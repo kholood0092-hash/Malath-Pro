@@ -42,7 +42,71 @@ def fix_ar(text, for_plotly=False):
         except:
             return mapped_text
     return mapped_text
+def generate_blueprint_figure(room_options, area, floor, is_green, prefs, climate=None):
+    climate = climate or {}
+    temp = climate.get('temp', 35)
 
+    # تكيّف المخطط مع المناخ الحقيقي
+    shade_depth  = 1.5 if temp > 40 else (1.0 if temp > 33 else 0.6)  # عمق الظلال
+    window_ratio = 0.15 if temp > 38 else 0.25   # نسبة النوافذ: أصغر في الحر
+    has_courtyard = temp > 36 and is_green        # فناء داخلي للتبريد الطبيعي
+    wall_color   = '#D4A96A' if temp > 36 else '#B8C4D4'  # لون الواجهة حسب المناخ
+
+
+def generate_blueprint_figure(room_options, area, floor, is_green, prefs, climate=None):
+    """
+    توليد مخطط معماري ذكي يستجيب للبيانات المناخية اللحظية.
+    """
+    # 1. معالجة البيانات المناخية (التوافق مع Python 3.14)
+    climate = climate or {}
+    temp = float(climate.get('temp', 35))
+
+    # 2. منطق الاستجابة المناخية (Climate-Responsive Logic)
+    # تكييف التصميم بناءً على درجة الحرارة المستلمة
+    shade_depth = 1.5 if temp > 38 else 0.8
+    has_inner_courtyard = temp > 36 and is_green
+    
+    # اختيار الألوان بناءً على الهوية البصرية (أخضر زمردي وذهبي)
+    primary_color = "#2E8B57" # الأخضر الزمردي
+    accent_color = "#D4A96A"  # لمسة ذهبية للفناء
+
+    fig = go.Figure()
+
+    # رسم الهيكل الخارجي للمبنى
+    fig.add_shape(
+        type="rect", x0=0, y0=0, x1=10, y1=10,
+        line=dict(color=primary_color, width=3),
+        fillcolor="rgba(46, 139, 87, 0.05)"
+    )
+
+    # إضافة "الفناء الداخلي" للتبريد الطبيعي إذا كانت الحرارة مرتفعة
+    if has_inner_courtyard:
+        fig.add_shape(
+            type="rect", x0=3.5, y0=3.5, x1=6.5, y1=6.5,
+            line=dict(color=accent_color, width=2, dash="dash"),
+            fillcolor="white"
+        )
+        fig.add_annotation(
+            x=5, y=5, text="فناء تبريد", 
+            showarrow=False, font=dict(color=accent_color, size=10)
+        )
+
+    # إضافة كواسر الظل (Shading Devices) على الواجهة
+    fig.add_shape(
+        type="line", x0=0, y0=10.2, x1=10, y1=10.2,
+        line=dict(color="#333333", width=shade_depth * 4)
+    )
+
+    # إعدادات المظهر المينيمالي (Minimalist Aesthetics)
+    fig.update_layout(
+        xaxis_visible=False, yaxis_visible=False,
+        plot_bgcolor='white',
+        margin=dict(l=10, r=10, t=10, b=10),
+        height=400,
+        showlegend=False
+    )
+
+    return fig
 # ==========================================
 # 🌟 الهوية البصرية والخامات 🌟
 # ==========================================
