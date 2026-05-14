@@ -358,14 +358,14 @@ with tabs[4]:
         GENAI_AVAILABLE = True
     except ImportError:
         GENAI_AVAILABLE = False
-            GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", "")
- 
- 
-    if GENAI_AVAILABLE and GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", ""):
+
+    GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", "")
+
     if GENAI_AVAILABLE and GEMINI_API_KEY != "":
         try:
-
- 
+            genai.configure(api_key=GEMINI_API_KEY)
+        except Exception:
+            pass
     st.markdown("تحكمي في عدسة الكاميرا والإضاءة بدقة هندسية عالية.")
     c_cam, c_light = st.columns(2)
     with c_cam:
