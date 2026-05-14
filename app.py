@@ -158,12 +158,8 @@ if analyze_btn:
             st.session_state['env_results'] = st.session_state['results']
             st.session_state['analyzed'] = True
  
-        if PDF_OK:
-            try:
-                create_pdf_report(st.session_state['results'])
-                st.success("✅ اكتمل التحليل وتوليد الملف!")
-            except Exception as e:
-                st.warning(f"⚠️ لم يتم إنشاء PDF: {e}")
+     
+          st.success("✅ اكتمل التحليل!")
  
 # ==========================================
 # 🌟 3. الواجهة الرئيسية (Main Dashboard) 🌟
@@ -326,7 +322,7 @@ with tabs[3]:
             st.subheader("💧 استراتيجيات المياه والطاقة")
             if SCORING_OK:
                 try:
-                    strat = get_sustainability_strategies()
+                 strat = get_sustainability_strategies(st.session_state.get('results'))
                     for s in strat['water']: st.write(f"💧 {s}")
                     for s in strat['energy']: st.write(f"⚡ {s}")
                 except Exception:
