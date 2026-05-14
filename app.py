@@ -157,10 +157,9 @@ if analyze_btn:
             st.session_state['results'] = {"temp": 38, "humidity": 30, "score": 85, "wind_speed": 15, "lat": st.session_state['lat']}
             st.session_state['env_results'] = st.session_state['results']
             st.session_state['analyzed'] = True
- 
+
+        st.success("✅ اكتمل التحليل!")
      
-          st.success("✅ اكتمل التحليل!")
- 
 # ==========================================
 # 🌟 3. الواجهة الرئيسية (Main Dashboard) 🌟
 # ==========================================
