@@ -386,8 +386,7 @@ with tabs[4]:
     prompt_parts.append(f"Lighting condition: {lighting}. Photorealistic, 8k render.")
     base_prompt = " ".join(prompt_parts)
     final_prompt = base_prompt
- 
-    if GENAI_AVAILABLE and GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", ""):
+
         try:
             with st.spinner("Gemini يقوم بضبط إعدادات العدسة والوصف..."):
                 model = genai.GenerativeModel('gemini-1.5-flash')
