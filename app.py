@@ -382,11 +382,11 @@ with tabs[4]:
     if prefs['rose_gold']: prompt_parts.append("Adorned with luxurious rose gold metallic accents.")
     if prefs['louvers']: prompt_parts.append("Windows feature kinetic sliding wooden louvers.")
     if prefs['bezel']: prompt_parts.append("The entrance has a geometric center bezel floor inlay.")
-    if st.session_state.get('is_green', True): prompt_parts.append("Biophilic design with cascading green plants.")
-    prompt_parts.append(f"Lighting condition: {lighting}. Photorealistic, 8k render.")
+   prompt_parts.append(f"Lighting condition: {lighting}. Photorealistic, 8k render.")
     base_prompt = " ".join(prompt_parts)
     final_prompt = base_prompt
 
+    if GENAI_AVAILABLE and GEMINI_API_KEY != "":
         try:
             with st.spinner("Gemini يقوم بضبط إعدادات العدسة والوصف..."):
                 model = genai.GenerativeModel('gemini-1.5-flash')
@@ -394,9 +394,8 @@ with tabs[4]:
                 final_prompt = response.text
         except Exception:
             pass
- 
+
     st.text_area("📝 الوصف النهائي الموجه للمحرك:", value=final_prompt, height=150)
- 
     demo_images = {
         "لقطة بمستوى العين_نهار ساطع": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80",
         "لقطة بمستوى العين_ليل سينمائي": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=80",
