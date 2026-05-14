@@ -366,13 +366,14 @@ with tabs[4]:
             genai.configure(api_key=GEMINI_API_KEY)
         except Exception:
             pass
+
     st.markdown("تحكمي في عدسة الكاميرا والإضاءة بدقة هندسية عالية.")
     c_cam, c_light = st.columns(2)
     with c_cam:
         camera_shot = st.selectbox("🎥 زاوية الكاميرا:", ["لقطة بمستوى العين", "لقطة درون علوية", "لقطة قريبة للتفاصيل"])
     with c_light:
         lighting = st.selectbox("💡 الإضاءة والجو العام:", ["نهار ساطع", "ليل سينمائي"])
- 
+
     prefs = st.session_state['prefs']
     prompt_parts = [f"A {camera_shot} of a modern villa."]
     if prefs['cool']: prompt_parts.append("Featuring cold glass and metal materials.")
@@ -382,7 +383,8 @@ with tabs[4]:
     if prefs['rose_gold']: prompt_parts.append("Adorned with luxurious rose gold metallic accents.")
     if prefs['louvers']: prompt_parts.append("Windows feature kinetic sliding wooden louvers.")
     if prefs['bezel']: prompt_parts.append("The entrance has a geometric center bezel floor inlay.")
-   prompt_parts.append(f"Lighting condition: {lighting}. Photorealistic, 8k render.")
+    if st.session_state.get('is_green', True): prompt_parts.append("Biophilic design with cascading green plants.")
+    prompt_parts.append(f"Lighting condition: {lighting}. Photorealistic, 8k render.")
     base_prompt = " ".join(prompt_parts)
     final_prompt = base_prompt
 
@@ -405,7 +407,7 @@ with tabs[4]:
         "لقطة قريبة للتفاصيل_ليل سينمائي": "https://images.unsplash.com/photo-1573221566340-81f1d4eb610a?w=1200&q=80"
     }
     selected_image = demo_images.get(f"{camera_shot}_{lighting}", demo_images["لقطة بمستوى العين_نهار ساطع"])
- 
+
     c_btn_ai1, c_btn_ai2 = st.columns(2)
     with c_btn_ai1:
         if st.button("📸 لقطة واقعية (Gemini Image)"):
@@ -419,7 +421,7 @@ with tabs[4]:
                 time.sleep(3)
                 st.success("✅ اكتمل الرندر!")
                 st.info("✨ مساحة عرض الفيديو جاهزة.")
- 
+             
 # ---------- التبويب 6: الإدارة والمقاولات ----------
 with tabs[5]:
     import io
