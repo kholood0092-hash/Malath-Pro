@@ -358,10 +358,9 @@ with tabs[4]:
         GENAI_AVAILABLE = True
     except ImportError:
         GENAI_AVAILABLE = False
+    GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", "")
  
-    GEMINI_API_KEY = "AIzaSyCPvfC0TOGvbBx5l1Um5G37euy7-jNHaYo"
- 
-    if GENAI_AVAILABLE and GEMINI_API_KEY != "AIzaSyCPvfC0TOGvbBx5l1Um5G37euy7-jNHaYo":
+    if GENAI_AVAILABLE and GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", ""):
         try:
             genai.configure(api_key=GEMINI_API_KEY)
         except Exception:
@@ -388,7 +387,7 @@ with tabs[4]:
     base_prompt = " ".join(prompt_parts)
     final_prompt = base_prompt
  
-    if GENAI_AVAILABLE and GEMINI_API_KEY != "AIzaSyCPvfC0TOGvbBx5l1Um5G37euy7-jNHaYo":
+    if GENAI_AVAILABLE and GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", ""):
         try:
             with st.spinner("Gemini يقوم بضبط إعدادات العدسة والوصف..."):
                 model = genai.GenerativeModel('gemini-1.5-flash')
