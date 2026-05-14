@@ -321,7 +321,7 @@ with tabs[3]:
             st.subheader("💧 استراتيجيات المياه والطاقة")
             if SCORING_OK:
                 try:
-                 strat = get_sustainability_strategies(st.session_state.get('results'))
+                    strat = get_sustainability_strategies(st.session_state.get('results'))
                     for s in strat['water']: st.write(f"💧 {s}")
                     for s in strat['energy']: st.write(f"⚡ {s}")
                 except Exception:
@@ -330,7 +330,7 @@ with tabs[3]:
             else:
                 st.write("💧 إعادة تدوير المياه الرمادية للري.")
                 st.write("⚡ استخدام زجاج Low-E العازل للحرارة.")
- 
+
         st.divider()
         st.markdown("#### 🧱 المواد ومواصفات الأثاث المستدام")
         res = st.session_state.get('results') or {}
@@ -344,6 +344,7 @@ with tabs[3]:
             st.success("🧱 **خرسانة خضراء**: تقلل من الانبعاثات الكربونية وتقاوم حرارة الخليج.")
     else:
         st.warning("حلول الاستدامة معطلة حالياً. يرجى تفعيلها من القائمة الجانبية.")
+     
  
 # ---------- التبويب 5: الاستوديو السينمائي ----------
 with tabs[4]:
